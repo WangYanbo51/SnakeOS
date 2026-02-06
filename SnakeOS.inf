@@ -1,0 +1,27 @@
+[Defines]
+    INF_VERSION = 0x00010006
+    BASE_NAME = SnakeOS
+    FILE_GUID = 1057D316-A179-4098-9CD0-3E8957FE6286
+    MODULE_TYPE = UEFI_APPLICATION
+    VERSION_STRING = 0.1
+    ENTRY_POINT = UefiMain
+
+[Sources]
+    Loader/SnakeOS.c
+    Loader/draw.c
+    Loader/file.c
+    Loader/elf.c
+    Loader/memory_map.c
+
+[Packages]
+    MdePkg/MdePkg.dec
+
+[LibraryClasses]
+    UefiApplicationEntryPoint
+    UefiLib
+
+[Guids]
+  gEfiFileInfoGuid
+
+[Protocols]
+  gEfiLoadedImageProtocolGuid
