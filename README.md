@@ -1,0 +1,3 @@
+# SnakeOS
+
+A simple UEFI loader and kernel ...
