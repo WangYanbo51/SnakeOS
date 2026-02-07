@@ -14,6 +14,7 @@
 ### 准备
   * EDKII环境
   * linux下使用 clang（或x86_64-elf-gcc）
+  * qemu x86_64 环境
 
 ### 构建
 ```
