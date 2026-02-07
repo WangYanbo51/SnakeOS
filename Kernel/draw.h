@@ -15,10 +15,10 @@ extern UINT32 ppsl; //PixelsPerScanLine
 extern UINT32 back_buffer[MAX_RESOLUTION_WIDTH * MAX_RESOLUTION_HEIGHT];
 
 void draw_init(VIDEO_CONFIG VideoConfig);
-void draw_pixel(UINT32 x, UINT32 y, UINT32 color);
+void draw_pixel(int x, int y, UINT32 color);
 void fill_screen(UINT32 color);
-void printf_at(UINT32 x, UINT32 y, UINT32 color, const char *fmt, ...);
+void printf_at(int x, int y, UINT32 color, const char *fmt, ...);
 void show_frame();
-void draw_rect(UINT32 x, UINT32 y, UINT32 w, UINT32 h, UINT32 color);
+void draw_rect(int x, int y, UINT32 w, UINT32 h, UINT32 color);
 
 #endif // _DRAW_H_

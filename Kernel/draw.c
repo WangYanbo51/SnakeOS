@@ -23,7 +23,7 @@ void draw_init(VIDEO_CONFIG VideoConfig)
 	VResolution = VideoConfig.VerticalResolution;
 	buffer_size = VideoConfig.FrameBufferSize;
 }
-void printf_at(UINT32 x, UINT32 y, UINT32 color, const char *fmt, ...)
+void printf_at(int x, int y, UINT32 color, const char *fmt, ...)
 {
 	va_list args;
 	va_start(args, fmt);
@@ -103,7 +103,7 @@ void printf_at(UINT32 x, UINT32 y, UINT32 color, const char *fmt, ...)
 	va_end(args);
 }
 
-void draw_pixel(UINT32 x, UINT32 y, UINT32 color)
+void draw_pixel(int x, int y, UINT32 color)
 {
 	if (x >= 0 && x < HResolution && y >= 0 && y < VResolution)
 		render_target[y * ppsl + x] = color;
@@ -117,23 +117,23 @@ void show_frame()
 {
 	sys_memcpy64(vram, back_buffer, buffer_size);
 }
-void draw_rect(UINT32 x, UINT32 y, UINT32 w, UINT32 h, UINT32 color)
+void draw_rect(int x, int y, UINT32 w, UINT32 h, UINT32 color)
 {
-	UINT32 x1 = (x < 0) ? 0 : x;
-	UINT32 y1 = (y < 0) ? 0 : y;
-	UINT32 x2 = (x + w > HResolution) ? HResolution : (x + w);
-	UINT32 y2 = (y + h > VResolution) ? VResolution : (y + h);
+	int x1 = (x < 0) ? 0 : x;
+	int y1 = (y < 0) ? 0 : y;
+	int x2 = (x + w > HResolution) ? HResolution : (x + w);
+	int y2 = (y + h > VResolution) ? VResolution : (y + h);
 
 	if (x1 >= x2 || y1 >= y2) return;
 
-	UINT32 fill_width = x2 - x1;
-	UINT32 fill_height = y2 - y1;
+	int fill_width = x2 - x1;
+	int fill_height = y2 - y1;
 
 	UINT32 *dest = &back_buffer[y1 * ppsl + x1];
 
-	for (UINT32 i = 0; i < fill_height; i++)
+	for (int i = 0; i < fill_height; i++)
 	{
-		for (UINT32 j = 0; j < fill_width; j++)
+		for (int j = 0; j < fill_width; j++)
 		{
 			dest[j] = color;
 		}
