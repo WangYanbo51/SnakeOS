@@ -8,7 +8,7 @@ all: build kernel copy
 
 kernel: $(wildcard Kernel/*.c)
 	# x86_64-elf-gcc -O3 -ffreestanding -fno-stack-protector -mno-red-zone -fno-builtin -Wall -Wextra -nostdlib $^ -o Kernel/kernel.elf -e kernel_main
-	clang -O3 $^ -fno-stack-protector -Wall -Wextra -nostdlib -o $(KERNEL_BIN) -e kernel_main
+	clang -O2 $^ -fno-stack-protector -Wall -Wextra -nostdlib -o $(KERNEL_BIN) -e kernel_main
 	# objcopy -R .note.gnu.property -R .note.ABI-tag Kernel/kernel.elf Kernel/kernel.bin -O binary
 	# nasm kernel.asm -f bin -o kernel.bin
 	# x86_64-elf-gcc -O3 \
@@ -47,6 +47,7 @@ iso: all
 		$(TMP_ISO)
 
 copy:
+	mkdir -p ~/EDKII/run-ovmf/hda/EFI/BOOT/
 	cp ../Build/SnakeOSPkg/DEBUG_GCC5/X64/SnakeOS.efi ~/EDKII/run-ovmf/hda/EFI/BOOT/BOOTX64.efi
 	cp Kernel/kernel.elf ~/EDKII/run-ovmf/hda/
 	cp ../Build/SnakeOSPkg/DEBUG_GCC5/X64/SnakeOS.efi ./tmp_iso/EFI/BOOT/BOOTX64.efi

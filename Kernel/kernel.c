@@ -2,6 +2,7 @@
 #include "keyboard.h"
 #include "font.h"
 #include "draw.h"
+#include "time.h"
 // #include "utils.h"
 
 __attribute__((section(".text.entry")))
@@ -29,20 +30,52 @@ UINT64 kernel_main(BOOT_CONFIG *BootConfig)
 	//    show_frame();
 	// 	get_kb();
 	// }
-  int rect_x = 0, rect_y = 0;
-  int px = 2, py = 2;
+	fill_screen(Blue);
+	int old_rect_x = 0, old_rect_y = 0;
+	int rect_x = 0, rect_y = 0;
+	// int px = 1, py = 1;
+	// while (1)
+	// {
+	// 	draw_rect(old_rect_x, old_rect_y, 100, 100, Blue);
+	//    old_rect_x = rect_x;
+	//    old_rect_y = rect_y;
+	// 	draw_rect(rect_x, rect_y, 100, 100, Orange);
+	//    printf_at(rect_x + 10, rect_y + 25, Blue, "Snake");
+	//    show_frame();
+	//    if ()
+	//    rect_x += px, rect_y += py;
+	//    if (rect_x < 0 || rect_x + 100 >= (int)HResolution)
+	//      px = -px;
+	//    if (rect_y < 0 || rect_y + 100 >= (int)VResolution)
+	//      py = -py;
+	//    delay_cycles(30000000);
+	// }
 	while (1)
 	{
-		fill_screen(Blue);
+		draw_rect(old_rect_x, old_rect_y, 100, 100, Blue);
+		old_rect_x = rect_x;
+		old_rect_y = rect_y;
+		KEY_EVENT event = get_kb_event();
+		switch (event)
+		{
+		case KEY_UP:
+			rect_y -= 10;
+			break;
+		case KEY_DOWN:
+			rect_y += 10;
+			break;
+		case KEY_LEFT:
+			rect_x -= 10;
+			break;
+		case KEY_RIGHT:
+			rect_x += 10;
+			break;
+		default:
+			break;
+		}
 		draw_rect(rect_x, rect_y, 100, 100, Orange);
-    printf_at(rect_x + 10, rect_y + 25, Blue, "Snake");
     show_frame();
-    rect_x += px, rect_y += py;
-    if (rect_x < 0 || rect_x + 100 >= HResolution)
-      px = -px;
-    if (rect_y < 0 || rect_y + 100 >= VResolution)
-      py = -py;
+    delay_cycles(30000000);
 	}
-
 	return 0;
 }
